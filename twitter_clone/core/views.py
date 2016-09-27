@@ -3,4 +3,5 @@ from django.shortcuts import render, HttpResponse
 # Create your views here.
 
 def home_page(request):
-    return HttpResponse('This is a test.')
+    context = {}
+    return render(request, 'core/homepage.html', context)
