@@ -4,6 +4,7 @@ from django.core.urlresolvers import reverse
 
 from selenium import webdriver
 
+from .. import models
 
 TEST_USER = {
     'username': 'dafhgeljw',
@@ -48,5 +49,10 @@ class EntryCreationTest(LiveServerTestCase):
             self.live_server_url + reverse('microblog:create_entry')
         )
         self.browser.find_element_by_id('id_content').send_keys(test_content)
-        self.browser.find_element_by_id('submit-entry')
-        self.fail('Finish test!')
+        self.browser.find_element_by_id('submit-entry').click()
+        # Check that entry was created
+        self.assertEqual(
+            test_content,
+            (models.Entry.objects.get(content=test_content)).content,
+        )
+

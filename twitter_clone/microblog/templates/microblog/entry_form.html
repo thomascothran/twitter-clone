@@ -1,0 +1,17 @@
+{% extends 'core/base.html' %}
+
+{% block title %}
+    | Create an Entry
+{% endblock %}
+
+{% block content %}
+
+<form action="" method="POST">
+    {% csrf_token %}
+    {{ form }}
+    <button type="submit" id="submit-entry" class="btn btn-primary">
+        Submit
+    </button>
+</form>
+
+{% endblock %}

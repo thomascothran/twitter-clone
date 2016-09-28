@@ -13,7 +13,7 @@ TEST_USER = {
 }
 
 
-class BlogEntryViewTest(TransactionTestCase):
+class BlogCreateEntryTest(TransactionTestCase):
 
     def setUp(self):
         self.test_user = get_user_model().objects.create_user(
