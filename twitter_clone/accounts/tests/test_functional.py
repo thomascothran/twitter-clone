@@ -11,6 +11,15 @@ TEST_USER = {
     'email': 'asdklfjwe@gmail.com',
 }
 
+# Helper functions
+
+def selenium_login(browser, username, password, login_url):
+    """This is a helper function to log a user in with the selenium browser."""
+    browser.get(login_url)
+    browser.find_element_by_name('username').send_keys(username)
+    browser.find_element_by_id('id_password').send_keys(password)
+    browser.find_element_by_id('submit-login').click()
+
 # Create your tests here.
 
 class AccountRegistrationTest(LiveServerTestCase):
@@ -47,5 +56,25 @@ class AccountRegistrationTest(LiveServerTestCase):
         self.assertEqual(
             self.browser.current_url,
             self.live_server_url + '/'
+        )
+
+class LoginTest(LiveServerTestCase):
+
+    def setUp(self):
+        self.browser = webdriver.Chrome()
+        self.browser.implicitly_wait(3)
+        self.test_user = get_user_model().objects.create_user(
+            TEST_USER['username'], TEST_USER['email'], TEST_USER['password']
+        )
+
+    def tearDown(self):
+        self.browser.quit()
+
+    def testLogin(self):
+        self.browser.get(self.live_server_url)
+        self.browser.find_element_by_id('navbar-login-link').click()
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse('accounts:login')
         )
 
