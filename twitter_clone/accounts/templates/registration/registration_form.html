@@ -1,4 +1,5 @@
 {% extends 'core/base.html' %}
+{% load crispy_forms_tags %}
 
 {% block title %}
     {{ block.super }}
@@ -9,7 +10,7 @@
 
 <form action="" method="POST">
     {% csrf_token %}
-    {{ form }}
+    {{ form|crispy }}
     <button id="submit-registration" type="submit" class="btn btn-primary">
         submit
     </button>

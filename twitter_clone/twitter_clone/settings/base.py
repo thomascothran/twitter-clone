@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'core',
     'accounts',
     'microblog',
+    'crispy_forms',
 ]
 
 MIDDLEWARE = [
@@ -121,3 +122,7 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.10/howto/static-files/
 
 STATIC_URL = '/static/'
+
+
+# Crispy forms settings
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
