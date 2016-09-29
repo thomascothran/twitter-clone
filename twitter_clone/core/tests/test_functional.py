@@ -30,7 +30,7 @@ class NewVisitorTest(LiveServerTestCase):
     # Jerry sees a sign in button
     def test_whether_sign_in_button_shows_up_for_logged_out_user(self):
         self.browser.get(self.live_server_url)
-        self.browser.find_element_by_xpath("//nav//a[text()='Sign In']").click()
+        self.browser.find_element_by_id("signin-button").click()
         self.assertEqual(
             self.browser.current_url,
             self.live_server_url + '/accounts/login/'
@@ -44,14 +44,10 @@ class NewVisitorTest(LiveServerTestCase):
         )
 
         # Jerry clicks on the sign up button
-        try:
-            self.browser.find_element_by_xpath("//nav//a[text()='Sign Up']").click()
-        except:
-            self.browser.maximize_window()
-            self.browser.find_element_by_xpath("//nav//a[text()='Sign Up']").click()
+        self.browser.find_element_by_id('signup-button').click()
         self.assertEqual(
             self.browser.current_url,
-            self.live_server_url + 'accounts/register'
+            self.live_server_url + 'accounts/register/'
         )
 
 class LoggedInUserTest(LiveServerTestCase):

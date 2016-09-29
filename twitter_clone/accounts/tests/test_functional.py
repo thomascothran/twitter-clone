@@ -72,9 +72,9 @@ class LoginTest(LiveServerTestCase):
 
     def testLogin(self):
         self.browser.get(self.live_server_url)
-        self.browser.find_element_by_id('navbar-login-link').click()
+        self.browser.find_element_by_id('signin-button').click()
         self.assertEqual(
             self.browser.current_url,
-            self.live_server_url + reverse('accounts:login')
+            self.live_server_url + '/accounts/login/'
         )
 
