@@ -20,5 +20,6 @@ from . import views
 urlpatterns = [
     url(r'^create-entry/', views.BlogEntryCreate.as_view(), name="create_entry"),
     url(r'^entry/(?P<pk>\d+)/$', views.BlogEntryDetail.as_view(), name="entry_detail"),
-    url(r'^user/(?P<pk>\d+)/$', views.UserProfile.as_view(), name='user_profile')
+    url(r'^user/(?P<pk>\d+)/$', views.UserProfile.as_view(), name='user_profile'),
+    url(r'^user-list/$', views.UserList.as_view(), name='user_list'),
 ]

@@ -1,5 +1,6 @@
 from django.test import LiveServerTestCase
 from django.contrib.auth.models import User
+from django.contrib.auth import get_user_model
 from django.core.urlresolvers import reverse
 
 from selenium import webdriver
@@ -100,3 +101,19 @@ class EntryCreationTest(LiveServerTestCase):
         self.assertIn(self.test_user.username, self.browser.page_source)
         self.assertIn(self.test_tweet.content, self.browser.page_source)
 
+
+class UserListTest(LiveServerTestCase):
+
+    def setUp(self):
+        self.browser = webdriver.Chrome()
+        self.browser.implicitly_wait(3)
+        self.test_user = get_user_model().objects.create_user(
+            TEST_USER['username'], TEST_USER['email'], TEST_USER['password']
+        )
+
+    def tearDown(self):
+        self.browser.quit()
+
+    def test_that_user_shows_up_on_user_list(self):
+        self.browser.get(self.live_server_url + reverse('microblog:user_list'))
+        self.assertIn(self.test_user.username, self.browser.page_source)

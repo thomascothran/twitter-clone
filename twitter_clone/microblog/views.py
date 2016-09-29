@@ -30,3 +30,8 @@ class UserProfile(DetailView):
         context = super(UserProfile, self).get_context_data(**kwargs)
         context['entries'] = Entry.objects.filter(creator=self.object)
         return context
+
+
+class UserList(ListView):
+    model = get_user_model()
+    template_name = 'microblog/user_list.html'

@@ -129,3 +129,26 @@ class UserProfileViewTest(TransactionTestCase):
         client = Client()
         response = client.get(reverse('microblog:user_profile', kwargs={'pk': self.test_user.pk}))
         self.assertContains(response, self.test_user.username)
+
+
+class UserListViewTests(TransactionTestCase):
+
+    def setUp(self):
+        pass
+
+    def test_that_url_wired_up_to_correct_view(self):
+        found = resolve(reverse('microblog:user_list'))
+        self.assertEqual(found.func.view_class, views.UserList)
+
+    def test_that_correct_template_used(self):
+        client = Client()
+        response = client.get(reverse('microblog:user_list'))
+        self.assertTemplateUsed(response, 'microblog/user_list.html')
+
+    def test_that_user_shows_up_on_user_list(self):
+        test_user = get_user_model().objects.create_user(
+            TEST_USER['username'], TEST_USER['email'], TEST_USER['password']
+        )
+        client = Client()
+        response = client.get(reverse('microblog:user_list'))
+        self.assertContains(response, test_user.username)
