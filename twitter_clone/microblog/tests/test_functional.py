@@ -109,6 +109,10 @@ class EntryCreationTest(LiveServerTestCase):
         self.assertIn(self.test_user.username, self.browser.page_source)
         self.assertIn(self.test_tweet.content, self.browser.page_source)
 
+    def test_whether_logged_out_user_is_redirected(self):
+        self.browser.get(self.live_server_url + reverse('microblog:create_entry'))
+        self.assertIn('login', self.browser.current_url)
+
 
 class UserListTest(LiveServerTestCase):
 

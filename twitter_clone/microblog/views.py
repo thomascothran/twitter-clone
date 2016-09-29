@@ -3,13 +3,14 @@ from django.views.generic.edit import CreateView
 from django.views.generic.detail import DetailView
 from django.views.generic.list import ListView
 from django.contrib.auth import get_user_model
+from django.contrib.auth.mixins import LoginRequiredMixin
 
 from .models import Entry
 
 # Create your views here.
 
 
-class BlogEntryCreate(CreateView):
+class BlogEntryCreate(LoginRequiredMixin, CreateView):
     model = Entry
     fields = ('content', )
 

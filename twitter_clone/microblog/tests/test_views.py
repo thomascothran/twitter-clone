@@ -34,6 +34,7 @@ class BlogCreateEntryTest(TransactionTestCase):
 
     def test_view_uses_correct_template(self):
         client = Client()
+        client.force_login(self.test_user)
         response = client.get(reverse('microblog:create_entry'))
         self.assertTemplateUsed(response, 'microblog/entry_form.html')
 
@@ -52,6 +53,14 @@ class BlogCreateEntryTest(TransactionTestCase):
         self.assertEqual(
             test_entry.creator,
             self.test_user
+        )
+
+    def test_that_logged_out_user_is_redirected_to_login(self):
+        client = Client()
+        response = client.get(reverse('microblog:create_entry'))
+        self.assertRedirects(
+            response,
+            expected_url='/accounts/login/?next=/microblog/create-entry/'
         )
 
     def test_that_user_is_redirected_to_entry_detail_page(self):
