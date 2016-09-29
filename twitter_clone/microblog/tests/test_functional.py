@@ -23,7 +23,7 @@ class EntryCreationTest(LiveServerTestCase):
 
     def setUp(self):
         self.browser = webdriver.Chrome()
-        self.browser.implicitly_wait(3)
+        self.browser.implicitly_wait(6)
         self.test_user = User.objects.create_user(
             TEST_USER['username'], TEST_USER['email'], TEST_USER['password']
         )
@@ -87,5 +87,16 @@ class EntryCreationTest(LiveServerTestCase):
     def test_whether_user_can_see_other_users_entries(self):
         """Jenni, a present user, decides to view a friends blog entries."""
         self.logUserIn(self.test_user2)
-        # TO DO: Jenny should use the search feature to find the user
-        self.fail('Finish Test')
+        # TODO: Jenny should use the search feature to find the user
+        self.browser.get(self.live_server_url + reverse('microblog:user_profile',
+                                                        kwargs={'pk': self.test_user.pk}))
+        self.assertIn(self.test_user.username, self.browser.page_source)
+        self.assertIn(self.test_tweet.content, self.browser.page_source)
+        self.browser.find_element_by_link_text(self.test_tweet.content).click()
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse('microblog:entry_detail', kwargs={'pk': self.test_tweet.pk})
+        )
+        self.assertIn(self.test_user.username, self.browser.page_source)
+        self.assertIn(self.test_tweet.content, self.browser.page_source)
+

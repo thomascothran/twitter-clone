@@ -1,0 +1,16 @@
+{% extends 'core/base.html' %}
+
+
+{% block content %}
+<h1>{{ object.username }}</h1>
+
+<ul>
+    {% for entry in entries %}
+    <li>
+        <a href="{% url 'microblog:entry_detail' entry.pk %}">
+            {{ entry.content }}
+        </a>
+    </li>
+    {% endfor %}
+</ul>
+{% endblock %}

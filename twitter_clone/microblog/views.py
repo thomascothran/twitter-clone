@@ -1,6 +1,8 @@
 from django.shortcuts import render
 from django.views.generic.edit import CreateView
-from django.views.generic import DetailView
+from django.views.generic.detail import DetailView
+from django.views.generic.list import ListView
+from django.contrib.auth import get_user_model
 
 from .models import Entry
 
@@ -15,6 +17,16 @@ class BlogEntryCreate(CreateView):
         form.instance.creator = self.request.user
         return super(BlogEntryCreate, self).form_valid(form)
 
+
 class BlogEntryDetail(DetailView):
     model = Entry
 
+
+class UserProfile(DetailView):
+    model = get_user_model()
+    template_name = 'microblog/user_profile.html'
+
+    def get_context_data(self, **kwargs):
+        context = super(UserProfile, self).get_context_data(**kwargs)
+        context['entries'] = Entry.objects.filter(creator=self.object)
+        return context
