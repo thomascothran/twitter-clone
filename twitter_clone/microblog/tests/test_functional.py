@@ -85,10 +85,18 @@ class EntryCreationTest(LiveServerTestCase):
             self.browser.page_source
         )
 
+    def test_whether_user_is_prevented_from_entering_an_entry_that_is_too_long(self):
+        self.logUserIn(self.test_user)
+        self.browser.get(self.live_server_url + reverse('microblog:create_entry'))
+        self.browser.find_element_by_id('id_content').send_keys('l' * 200)
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse('microblog:create_entry')
+        )
+
     def test_whether_user_can_see_other_users_entries(self):
         """Jenni, a present user, decides to view a friends blog entries."""
         self.logUserIn(self.test_user2)
-        # TODO: Jenny should use the search feature to find the user
         self.browser.get(self.live_server_url + reverse('microblog:user_profile',
                                                         kwargs={'pk': self.test_user.pk}))
         self.assertIn(self.test_user.username, self.browser.page_source)

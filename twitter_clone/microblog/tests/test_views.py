@@ -71,6 +71,13 @@ class BlogCreateEntryTest(TransactionTestCase):
             reverse('microblog:entry_detail', kwargs={'pk': test_entry.pk})
         )
 
+    def test_tweets_that_are_too_long(self):
+        test_content = "#" * 200
+        client = Client()
+        client.force_login(self.test_user)
+        response = client.post(reverse('microblog:create_entry'), {'content': test_content})
+        self.assertContains(response, '140 characters')
+
 class BlogEntryDetailTest(TransactionTestCase):
 
     def setUp(self):
