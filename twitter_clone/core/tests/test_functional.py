@@ -47,7 +47,7 @@ class NewVisitorTest(LiveServerTestCase):
         self.browser.find_element_by_id('signup-button').click()
         self.assertEqual(
             self.browser.current_url,
-            self.live_server_url + 'accounts/register/'
+            self.live_server_url + '/accounts/register/'
         )
 
 class LoggedInUserTest(LiveServerTestCase):

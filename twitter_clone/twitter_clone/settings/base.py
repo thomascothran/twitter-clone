@@ -126,3 +126,5 @@ STATIC_URL = '/static/'
 
 # Crispy forms settings
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+LOGIN_REDIRECT_URL = '/'

@@ -78,3 +78,12 @@ class LoginTest(LiveServerTestCase):
             self.live_server_url + '/accounts/login/'
         )
 
+        self.browser.find_element_by_name('username').send_keys(TEST_USER['username'])
+        self.browser.find_element_by_id('id_password').send_keys(TEST_USER['password'])
+        self.browser.find_element_by_id('submit-login').click()
+        # Check that we redirect to home page
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + '/'
+        )
+
