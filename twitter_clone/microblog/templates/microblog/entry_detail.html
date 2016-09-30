@@ -3,9 +3,6 @@
 
 {% block content %}
 
-<p>{{ object.content }}</p>
-<p><a href="{% url 'microblog:user_profile' object.creator.pk %}">{{ object.creator }}</a></p>
-<p>{{ object.created }}</p>
-<p>{{ object.edited }}</p>
+{% include 'microblog/_entry.html' %}
 
 {% endblock %}

@@ -21,6 +21,7 @@ class BlogEntryCreate(LoginRequiredMixin, CreateView):
 
 class BlogEntryDetail(DetailView):
     model = Entry
+    context_object_name = 'entry'
 
 
 class UserProfile(DetailView):

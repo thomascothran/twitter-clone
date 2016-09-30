@@ -106,6 +106,12 @@ class BlogEntryDetailTest(TransactionTestCase):
         response = client.get(reverse('microblog:entry_detail', kwargs={'pk': self.test_entry.pk}))
         self.assertContains(response, self.test_entry.content)
 
+    def test_whether_gravatar_img_shows_up_in_blog_entry_include(self):
+        client = Client()
+        client.force_login(self.test_user)
+        response = client.get(reverse('microblog:entry_detail', kwargs={'pk': self.test_entry.pk}))
+        self.assertContains(response, 'img class="gravatar"')
+
 
 class UserProfileViewTest(TransactionTestCase):
 
@@ -139,6 +145,11 @@ class UserProfileViewTest(TransactionTestCase):
         self.assertContains(
             response,
             reverse('microblog:entry_detail', kwargs={'pk': self.test_entry.pk})
+        )
+        # Check link id
+        self.assertContains(
+            response,
+            'id="link-to-entry-{}"'.format(self.test_entry.pk)
         )
 
     def test_whether_username_shows_up_on_creator_users_profile(self):

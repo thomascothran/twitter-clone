@@ -101,7 +101,7 @@ class EntryCreationTest(LiveServerTestCase):
                                                         kwargs={'pk': self.test_user.pk}))
         self.assertIn(self.test_user.username, self.browser.page_source)
         self.assertIn(self.test_tweet.content, self.browser.page_source)
-        self.browser.find_element_by_link_text(self.test_tweet.content).click()
+        self.browser.find_element_by_css_selector('#link-to-entry-{}'.format(self.test_tweet.pk)).click()
         self.assertEqual(
             self.browser.current_url,
             self.live_server_url + reverse('microblog:entry_detail', kwargs={'pk': self.test_tweet.pk})

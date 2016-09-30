@@ -41,6 +41,7 @@ INSTALLED_APPS = [
     'custom_accounts',
     'microblog',
     'crispy_forms',
+    'django_gravatar',
 ]
 
 MIDDLEWARE = [

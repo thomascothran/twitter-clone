@@ -25,3 +25,7 @@ div.entry-snippet #username-link {
     font-weight: bold;
     font-color: #292f33;
 }
+
+div.entry-snippet div.tweet-content {
+    padding: 7px 0;
+}
