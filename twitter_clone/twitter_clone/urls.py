@@ -20,5 +20,6 @@ urlpatterns = [
     url(r'^admin/', admin.site.urls),
     url(r'^accounts/', include('registration.backends.simple.urls', namespace="registration")),
     url(r'^microblog/', include('microblog.urls', namespace='microblog')),
+    url(r'^u/$', include('custom_accounts.urls', namespace='custom_accounts')),
     url(r'^', include('core.urls', namespace='core')),
 ]

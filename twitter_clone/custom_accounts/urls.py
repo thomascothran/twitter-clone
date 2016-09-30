@@ -19,5 +19,4 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
-    url(r'^sign-up/$', views.signup, name="signup"),
 ]

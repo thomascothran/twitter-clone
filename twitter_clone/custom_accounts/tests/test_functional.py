@@ -70,7 +70,7 @@ class LoginTest(LiveServerTestCase):
     def tearDown(self):
         self.browser.quit()
 
-    def testLogin(self):
+    def test_login(self):
         self.browser.get(self.live_server_url)
         self.browser.find_element_by_id('signin-button').click()
         self.assertEqual(
@@ -87,3 +87,17 @@ class LoginTest(LiveServerTestCase):
             self.live_server_url + '/'
         )
 
+class UserProfileTest(LiveServerTestCase):
+
+    def setUp(self):
+        self.browser = webdriver.Chrome()
+        self.browser.implicitly_wait(3)
+        self.test_user = get_user_model().objects.create_user(
+            TEST_USER['username'], TEST_USER['email'], TEST_USER['password']
+        )
+
+    def tearDown(self):
+        self.browser.quit()
+
+    def test_whether_user_can_upload_profile_images(self):
+        self.fail('Write test!')
