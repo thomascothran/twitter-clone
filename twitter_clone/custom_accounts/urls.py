@@ -19,4 +19,5 @@ from django.contrib import admin
 from . import views
 
 urlpatterns = [
+    url(r'^follow/(?P<pk>\d+)/$', views.follow_user, name='follow_user'),
 ]

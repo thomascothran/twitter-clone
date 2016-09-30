@@ -9,13 +9,16 @@ class UserProfile(models.Model):
     """A custom user profile to be added to the default django model"""
     user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     following = models.ManyToManyField(
-        settings.AUTH_USER_MODEL,
+        'self',
+        symmetrical=False,
         related_name='followers'
     )
+
+    def __str__(self):
+        return 'Profile: {}'.format(self.user.username)
 
 # A helper function to automatically create a UserProfile when a user object is created
 @receiver(post_save, sender=settings.AUTH_USER_MODEL)
 def ensure_user_profile_exists(sender, **kwargs):
     if kwargs.get('created', False):
-        import pdb; pdb.set_trace()
         UserProfile.objects.get_or_create(user=kwargs.get('instance'))

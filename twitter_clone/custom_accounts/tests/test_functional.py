@@ -10,6 +10,11 @@ TEST_USER = {
     'password': 'sarjla3*)(#J',
     'email': 'asdklfjwe@gmail.com',
 }
+TEST_USER2 = {
+    'username': 'eljw',
+    'password': 'sweaj21a3*)(#J',
+    'email': 'ae@gmail.com',
+}
 
 # Helper functions
 
@@ -88,3 +93,63 @@ class LoginTest(LiveServerTestCase):
         )
 
 
+class TestFollowers(LiveServerTestCase):
+
+    def setUp(self):
+        self.browser = webdriver.Chrome()
+        self.browser.implicitly_wait(3)
+        self.test_user = get_user_model().objects.create_user(
+            TEST_USER['username'], TEST_USER['email'], TEST_USER['password']
+        )
+        self.test_user2 = get_user_model().objects.create_user(
+            TEST_USER2['username'], TEST_USER2['email'], TEST_USER2['password']
+        )
+
+    def tearDown(self):
+        self.browser.quit()
+
+    def log_user_in(self, user_dict=TEST_USER):
+        self.browser.get(self.live_server_url + '/accounts/login')
+        self.browser.find_element_by_name('username').send_keys(TEST_USER['username'])
+        self.browser.find_element_by_id('id_password').send_keys(TEST_USER['password'])
+        self.browser.find_element_by_id('submit-login').click()
+
+    def test_whether_one_user_can_follow_another(self):
+        # Jenny wants to follow Jerry.
+        # First, she logs in
+        self.log_user_in()
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + '/'
+        )
+        # Then she goes to Jerry's profile page
+        self.browser.get(
+            self.live_server_url +
+            reverse('microblog:user_profile', kwargs={'pk': self.test_user2.pk})
+        )
+        self.assertEqual(
+            self.browser.current_url,
+            (self.live_server_url +
+             reverse('microblog:user_profile', kwargs={'pk': self.test_user2.pk}))
+        )
+        # She clicks the link to follow him
+        self.browser.find_element_by_id(
+            'follow-u-{}'.format(self.test_user2.pk)
+        ).click()
+        # Check that we were correctly redirected
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse('microblog:user_profile',
+                                           kwargs={'pk': self.test_user2.pk})
+        )
+        self.assertIn(
+            self.test_user2.userprofile,
+            self.test_user.userprofile.following.all()
+        )
+        # She then goes to the user list
+        self.browser.get(
+            self.live_server_url +
+            reverse('microblog:user_list')
+        )
+        # She sees a button that says "following"
+        # She clicks it to unfollow him

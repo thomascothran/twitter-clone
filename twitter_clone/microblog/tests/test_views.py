@@ -157,6 +157,14 @@ class UserProfileViewTest(TransactionTestCase):
         response = client.get(reverse('microblog:user_profile', kwargs={'pk': self.test_user.pk}))
         self.assertContains(response, self.test_user.username)
 
+    def test_whether_follow_button_shows_up_on_user_profile(self):
+        client = Client()
+        response = client.get(reverse('microblog:user_profile', kwargs={'pk': self.test_user.pk}))
+        self.assertContains(
+            response,
+            reverse('custom_accounts:follow_user', kwargs={'pk': self.test_user.pk})
+        )
+
 
 class UserListViewTests(TransactionTestCase):
 
