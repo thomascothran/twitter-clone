@@ -1,0 +1,27 @@
+body {
+    font-family: 'exo', sans-serif;
+    color: #333;
+    background-color: #f5f8fa;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'lato', sans-serif;
+    color: #767676;
+}
+
+div.entry-snippet {
+    font-size: 14px;
+    min-width: 350px;
+    border-color: #e1e8ed;
+    border-width: 1px;
+    border-style: solid;
+    background: white;
+    min-height: 51px;
+    padding: 9px 12px;
+    margin-bottom: 20px;
+}
+
+div.entry-snippet #username-link {
+    font-weight: bold;
+    font-color: #292f33;
+}

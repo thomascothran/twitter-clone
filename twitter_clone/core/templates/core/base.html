@@ -1,3 +1,4 @@
+{% load static %}
 
 <!DOCTYPE html>
 <html lang="en">
@@ -14,6 +15,12 @@
           href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
           integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u"
           crossorigin="anonymous">
+
+    <!-- Fonts -->
+     <link href="https://fonts.googleapis.com/css?family=Exo|Lato" rel="stylesheet">
+
+    <!-- Custom Styles -->
+    <link href="{% static 'core/styles.css' %}" rel="stylesheet">
 
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -74,14 +81,6 @@
               <li><a id="signin-button" href="{% url 'registration:auth_login' %}">Sign In</a></li>
           {% endif %}
       </ul>
-      <form class="navbar-form navbar-right">
-        <div class="form-group">
-          <input type="text" class="form-control" placeholder="Search">
-        </div>
-        <button type="submit" class="sr-only">
-                Submit
-        </button>
-      </form>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>

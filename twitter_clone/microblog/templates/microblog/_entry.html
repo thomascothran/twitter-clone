@@ -1,0 +1,21 @@
+<div class="row">
+    <div class="col-md-5">
+        <div class="entry-snippet">
+           <div>
+               <span><strong>
+                   <a id="username-link" href="{% url 'microblog:user_profile' entry.creator.pk %}">
+                       {{ entry.creator.username }}
+                   </a>
+               </strong></span>
+               <span style="float:right;">
+                   <a href="{{ entry.get_absolute_url }}">
+                       {{ entry.created }}
+                   </a>
+               </span>
+           </div>
+           <div>
+               {{ entry.content }}
+           </div>
+        </div>
+    </div>
+</div>
