@@ -159,6 +159,7 @@ class UserProfileViewTest(TransactionTestCase):
 
     def test_whether_follow_button_shows_up_on_user_profile(self):
         client = Client()
+        client.force_login(self.test_user2)
         response = client.get(reverse('microblog:user_profile', kwargs={'pk': self.test_user.pk}))
         self.assertContains(
             response,

@@ -3,12 +3,7 @@
 
 {% block content %}
 <h1>{{ object.username }}</h1>
-<a id="follow-u-{{ object.pk }}"
-        href="{% url 'custom_accounts:follow_user' object.pk %}"
-        class="btn btn-primary"
->
-    follow
-</a>
+{% include 'custom_accounts/_follow_button.html' %}
 
 <ul>
     {% for entry in entries %}

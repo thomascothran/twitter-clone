@@ -1,0 +1,20 @@
+{# Object is the user that will be followed #}
+
+{% if request.user.username != object.username and object.userprofile not in request.user.userprofile.following.all %}
+
+<a id="follow-u-{{ object.pk }}"
+   href="{% url 'custom_accounts:follow_user' object.pk %}"
+   class="btn btn-primary"
+>
+    follow
+</a>
+
+{% elif object.userprofile in request.user.userprofile.following.all %}
+
+<a id="unfollow-u-{{ object.pk }}"
+   href="{% url 'custom_accounts:unfollow_user' object.pk %}"
+   class="btn btn-primary">
+    unfollow
+</a>
+
+{% endif %}

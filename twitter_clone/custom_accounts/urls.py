@@ -20,4 +20,6 @@ from . import views
 
 urlpatterns = [
     url(r'^follow/(?P<pk>\d+)/$', views.follow_user, name='follow_user'),
+    url(r'^unfollow/(?P<pk>\d+)/$', views.unfollow_user, name='unfollow_user'),
+
 ]

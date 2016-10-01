@@ -152,10 +152,52 @@ class TestFollowers(LiveServerTestCase):
             "You are following {}".format(self.test_user2.username),
             self.browser.page_source
         )
-        # She then goes to the user list
+        # She then changes her mind and decides not to follow Jerry
         self.browser.get(
             self.live_server_url +
-            reverse('microblog:user_list')
+            reverse(
+                'microblog:user_profile',
+                kwargs={'pk': self.test_user2.pk}
+            )
         )
-        # She sees a button that says "following"
+        # She sees a button that says "following" next to Jerry
         # She clicks it to unfollow him
+        self.browser.find_element_by_id(
+            'unfollow-u-{}'.format(self.test_user2.pk)
+        ).click()
+        # Check that the following relation was destroyed
+        self.assertNotIn(
+            self.test_user2.userprofile,
+            self.test_user.userprofile.following.all()
+        )
+        # Check that she was redirected to Jerry's page
+        self.assertEqual(
+            self.browser.current_url,
+            self.live_server_url + reverse(
+                'microblog:user_profile',
+                kwargs={'pk': self.test_user2.pk}
+            )
+        )
+        # TODO Check that the message re: unfollowing is displayed
+        self.assertIn(
+            'You are no longer following {}'.format(
+                self.test_user2.username,
+            ),
+            self.browser.page_source
+        )
+
+        # Check that user's own page doesn't show a follow button
+        self.browser.get(
+            self.live_server_url +
+            reverse(
+                'microblog:user_profile',
+                kwargs={'pk': self.test_user.pk}
+            )
+        )
+        self.assertNotIn(
+            reverse(
+                'custom_accounts:follow_user',
+                kwargs={'pk': self.test_user.pk}
+            ),
+            self.browser.page_source
+        )
