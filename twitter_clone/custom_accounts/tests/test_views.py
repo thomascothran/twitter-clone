@@ -46,3 +46,17 @@ class FollowUserTest(TransactionTestCase):
                 'microblog:user_profile',
                 kwargs={'pk': self.test_user2.pk})
         )
+
+    def test_whether_successful_follow_generates_messages(self):
+        client = Client()
+        client.force_login(self.test_user)
+        response = client.get(
+            reverse(
+                'custom_accounts:follow_user',
+                kwargs={'pk': self.test_user2.pk}),
+            follow=True
+        )
+        self.assertIn(
+            "You are following {}".format(self.test_user2.username),
+            list(response.context['messages'])[0].message
+        )

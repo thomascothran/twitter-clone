@@ -142,9 +142,15 @@ class TestFollowers(LiveServerTestCase):
             self.live_server_url + reverse('microblog:user_profile',
                                            kwargs={'pk': self.test_user2.pk})
         )
+        # Check that the following relation was created
         self.assertIn(
             self.test_user2.userprofile,
             self.test_user.userprofile.following.all()
+        )
+        # Check that success message is displayed
+        self.assertIn(
+            "You are following {}".format(self.test_user2.username),
+            self.browser.page_source
         )
         # She then goes to the user list
         self.browser.get(
