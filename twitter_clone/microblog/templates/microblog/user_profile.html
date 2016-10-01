@@ -2,12 +2,18 @@
 
 
 {% block content %}
-<h1>{{ object.username }}</h1>
-{% include 'custom_accounts/_follow_button.html' %}
+<div class="row">
+    <div class="col-md-2">
+        <h1>{{ object.username }}</h1>
+        {% include 'custom_accounts/_follow_button.html' %}
+    </div>
+    <div class="col-md-10">
+        <ul>
+            {% for entry in entries %}
+            {% include "microblog/_entry.html" %}
+            {% endfor %}
+        </ul>
+    </div>
+</div>
 
-<ul>
-    {% for entry in entries %}
-    {% include "microblog/_entry.html" %}
-    {% endfor %}
-</ul>
 {% endblock %}
