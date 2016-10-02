@@ -1,31 +1,27 @@
 {% load gravatar %}
 
-<div class="row">
-    <div class="col-md-5">
-        <div class="entry-snippet">
-           <div class="row">
-               <div class="col-xs-3">
-                   {% gravatar user.email 75 %}
-               </div>
+<div class="entry-snippet">
+   <div class="row">
+       <div class="col-xs-3">
+           {% gravatar user.email 75 %}
+       </div>
 
-               <div class="col-xs-9">
-                   <span><strong>
-                       <a id="username-link" href="{% url 'microblog:user_profile' entry.creator.pk %}">
-                           {{ entry.creator.username }}
-                       </a>
-                   </strong></span>
-                   <span style="float:right;">
-                       <a id="link-to-entry-{{ entry.pk}}" href="{{ entry.get_absolute_url }}">
-                           {{ entry.created }}
-                       </a>
-                   </span>
-                   <div class="tweet-content">
-                       {{ entry.content }}
-                   </div>
-               </div>
+       <div class="col-xs-9">
+           <span><strong>
+               <a id="username-link" href="{% url 'microblog:user_profile' entry.creator.pk %}">
+                   {{ entry.creator.username }}
+               </a>
+           </strong></span>
+           <span style="float:right;">
+               <a id="link-to-entry-{{ entry.pk}}" href="{{ entry.get_absolute_url }}">
+                   {{ entry.created }}
+               </a>
+           </span>
+           <div class="tweet-content">
+               {{ entry.content }}
            </div>
+       </div>
+   </div>
 
-        </div>
-
-    </div>
 </div>
+

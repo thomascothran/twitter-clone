@@ -1,10 +1,12 @@
 {% extends 'core/base.html' %}
+{% load gravatar %}
 
 
 {% block content %}
 <div class="row">
-    <div class="col-md-2">
+    <div class="col-md-2 user-profile-box text-center">
         <h1>{{ object.username }}</h1>
+        {% gravatar user.email 150 %}
         {% include 'custom_accounts/_follow_button.html' %}
     </div>
     <div class="col-md-10">

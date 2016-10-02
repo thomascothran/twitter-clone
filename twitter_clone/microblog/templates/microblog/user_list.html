@@ -1,14 +1,26 @@
 {% extends 'core/base.html' %}
+{% load gravatar %}
 
 {% block content %}
 
-<h1>Users</h1>
+        <h1 class="text-center">Users</h1>
 
-<ul>
-{% for user_obj in object_list %}
-    <li><a href="{% url 'microblog:user_profile' user_obj.pk %}">
-        {{ user_obj.username }}
-    </a></li>
-{% endfor %}
-</ul>
+        <div class="row">
+        {% for user_obj in object_list %}
+            <div class="col-md-2 text-center">
+                <div class="user-card">
+                    <h4>
+                        {{ user_obj.username }}
+                    </h4>
+                    {% gravatar user_obj.email 150 %}
+                    <a  class="btn btn-primary btn-block"
+                        href="{% url 'microblog:user_profile' user_obj.pk %}">
+                        Profile
+                    </a>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+
 {% endblock %}

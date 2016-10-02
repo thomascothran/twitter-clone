@@ -12,6 +12,7 @@ h1, h2, h3, h4, h5, h6 {
 div.entry-snippet {
     font-size: 14px;
     min-width: 350px;
+    max-width: 500px;
     border-color: #e1e8ed;
     border-width: 1px;
     border-style: solid;
@@ -28,4 +29,12 @@ div.entry-snippet #username-link {
 
 div.entry-snippet div.tweet-content {
     padding: 7px 0;
+}
+
+div.user-profile-box a.btn {
+    margin-top: 20px;
+}
+
+div.user-card a.btn {
+    margin-top: 20px;
 }

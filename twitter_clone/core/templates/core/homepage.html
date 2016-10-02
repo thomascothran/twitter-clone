@@ -8,8 +8,14 @@
 
 {% block content %}
 
-{% for entry in posts %}
-    {% include 'microblog/_entry.html' %}
-{% endfor %}
+<div class="row">
+    <div class="col-xs-12 col-md-10 col-md-offset-2">
+        <h2>Feed</h2>
+        {% for entry in posts %}
+            {% include 'microblog/_entry.html' %}
+        {% endfor %}
+    </div>
+
+</div>
 
 {% endblock %}

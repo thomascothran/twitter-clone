@@ -9,7 +9,7 @@
     follow
 </a>
 
-{% elif object.userprofile in request.user.userprofile.following.all %}
+{% elif object.userprofile in request.user.userprofile.following.all and request.user.username != object.username %}
 
 <a id="unfollow-u-{{ object.pk }}"
    href="{% url 'custom_accounts:unfollow_user' object.pk %}"
