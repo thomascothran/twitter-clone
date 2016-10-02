@@ -43,6 +43,7 @@ class NewVisitorTest(LiveServerTestCase):
     def test_whether_new_user_sees_welcome_page(self):
         self.browser.get(self.live_server_url)
         self.assertIn("Twitter", self.browser.title)
+        self.assertIn("Welcome")
 
     # Jerry sees a sign in button
     def test_whether_sign_in_button_shows_up_for_logged_out_user(self):

@@ -8,6 +8,7 @@
 
 {% block content %}
 
+{% if request.user.is_authenticated %}
 <div class="row">
     <div class="col-xs-12 col-md-10 col-md-offset-2">
         <h2>Feed</h2>
@@ -17,5 +18,21 @@
     </div>
 
 </div>
+{% else %}
+
+<div class="jumbotron">
+    <div class="container">
+        <h1>
+            Welcome to my twitter clone
+        </h1>
+        <p>
+            A demonstration of test driven development using Selenium for
+            functional testing and Django's built in test client for
+            unit tests.
+        </p>
+    </div>
+</div>
+
+{% endif %}
 
 {% endblock %}
