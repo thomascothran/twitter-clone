@@ -92,6 +92,32 @@ class LoginTest(LiveServerTestCase):
             self.live_server_url + '/'
         )
 
+class LogOutTest(LiveServerTestCase):
+
+    def setUp(self):
+        self.browser = webdriver.Chrome()
+        self.browser.implicitly_wait(3)
+        self.test_user = get_user_model().objects.create_user(
+            TEST_USER['username'], TEST_USER['email'], TEST_USER['password']
+        )
+
+    def tearDown(self):
+        self.browser.quit()
+
+    def log_user_in(self, user_dict=TEST_USER):
+        self.browser.get(self.live_server_url + '/accounts/login')
+        self.browser.find_element_by_name('username').send_keys(TEST_USER['username'])
+        self.browser.find_element_by_id('id_password').send_keys(TEST_USER['password'])
+        self.browser.find_element_by_id('submit-login').click()
+
+    def test_whether_user_can_log_out(self):
+        self.log_user_in()
+        self.browser.find_element_by_id('navbar-logout-link').click()
+        # Sign in button should now show up
+        self.assertIn(
+            "signin-button",
+            self.browser.page_source
+        )
 
 class TestFollowers(LiveServerTestCase):
 
